@@ -3,7 +3,7 @@ import turtle as t
 import numpy as np
 
 # --- IMAGE PROCESSING ---
-img = cv2.imread("image.jpg")
+img = cv2.imread("image.jpeg")
 if img is None:
     raise FileNotFoundError("Couldn't find 'image.jpg' in the current folder.")
 
