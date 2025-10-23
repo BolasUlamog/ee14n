@@ -23,7 +23,7 @@ cv2.imwrite("edges.png", edges)
 
 # Find contours (smooth outlines)
 contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-contours = [c for c in contours if len(c) > 50]  # filter out noise
+contours = [c for c in contours if len(c) > 20]  # filter out noise
 
 # Simplify contours for smoother lines
 smooth_contours = []
