@@ -1,11 +1,10 @@
 import cv2
-import turtle as t
 import numpy as np
 
 # --- IMAGE PROCESSING ---
-img = cv2.imread("image.png")
+img = cv2.imread("image.jpg")
 if img is None:
-    raise FileNotFoundError("Couldn't find 'image.jpg' in the current folder.")
+    raise FileNotFoundError("Couldn't find 'image.jpeg' in the current folder.")
 
 # Resize to a manageable size
 img = cv2.resize(img, (600, 600))
@@ -32,48 +31,22 @@ for c in contours:
     approx = cv2.approxPolyDP(c, epsilon, True)
     smooth_contours.append(approx)
 
-# --- TURTLE SETUP ---
-t.colormode(1.0)
-t.bgcolor("black")
-t.speed(0)
-t.hideturtle()
-t.tracer(1, 1)
-t.width(2)
-
-# --- RAINBOW COLOR FUNCTION ---
-def rainbow_color(step, total_steps, cycles=3):
-    hue = (step / total_steps) * cycles * 6
-    c = max(0, 1 - abs(hue % 2 - 1))
-    if hue < 1: r, g, b = 1, c, 0
-    elif hue < 2: r, g, b = c, 1, 0
-    elif hue < 3: r, g, b = 0, 1, c
-    elif hue < 4: r, g, b = 0, c, 1
-    elif hue < 5: r, g, b = c, 0, 1
-    else: r, g, b = 1, 0, c
-    return (r, g, b)
-
-# --- DRAW ---
-total_points = sum(len(c) for c in smooth_contours)
-counter = 0
+# --- SAVE POINTS INSTEAD OF DRAWING ---
+points = []
 
 scale = 0.5
 offset_x, offset_y = -250, 250
 
 for contour in smooth_contours:
-    t.penup()
-    first = True
     for point in contour:
         x, y = point[0]
         tx = x * scale + offset_x
         ty = -y * scale + offset_y
-        color = rainbow_color(counter, total_points)
-        t.pencolor(color)
-        if first:
-            t.goto(tx, ty)
-            t.pendown()
-            first = False
-        else:
-            t.goto(tx, ty)
-        counter += 1
+        points.append((tx, ty))
 
-t.done()
+# Save to TXT
+with open("points.txt", "w") as f:
+    for (x, y) in points:
+        f.write(f"{x},{y}\n")
+
+print(f"Saved {len(points)} points to points.txt")
