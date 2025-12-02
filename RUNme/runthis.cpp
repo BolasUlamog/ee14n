@@ -50,12 +50,12 @@ void setup() {
   // Configure X stepper
   stepperX.setMaxSpeed(1000);       // Steps per second
   stepperX.setAcceleration(500);    // Steps per second²
-  stepperX.setCurrentPosition(0);   // Set current position as zero
+  stepperX.setCurrentPosition(45);   // Set current position as zero
   
   // Configure Y stepper
   stepperY.setMaxSpeed(1000);       // Steps per second
   stepperY.setAcceleration(500);    // Steps per second²
-  stepperY.setCurrentPosition(0);   // Set current position as zero
+  stepperY.setCurrentPosition(45);   // Set current position as zero
   
   Serial.println("Dual Stepper Motor X-Y Angle Control");
   Serial.println("Ready to move to angles from lists");
