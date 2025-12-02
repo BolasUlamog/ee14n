@@ -3,6 +3,9 @@
 
 #include <AccelStepper.h>
 
+// --- LASER SETUP ---
+#define LASER_PIN 7
+
 // Define X-axis stepper motor connections
 #define X_STEP_PIN 2
 #define X_DIR_PIN 3
@@ -26,8 +29,12 @@ float xAngles[] = {81.2722, 81.2722, 81.3873, 81.5021, 90, 120, 82.2962, 0};
 // List of target angles for Y-axis (in degrees)
 float yAngles[] = {45, 50, 55, 60, 90, 135, 180, 0};
 
+// List of True/False values to turn laser on/off
+const char* laserValues[] = {"true", "true", "true", "true", "true", "false", "true", "false"};
+
 int numAngles = sizeof(xAngles) / sizeof(xAngles[0]);
 int currentIndex = 0;
+int laserState = 0; // Laser State
 
 // Current angle trackers
 float currentXAngle = 0.0;
@@ -35,6 +42,10 @@ float currentYAngle = 0.0;
 
 void setup() {
   Serial.begin(9600);
+  
+  // Configure Laser
+  pinMode(LASER_PIN, OUTPUT);
+  digitalWrite(LASER_PIN, LOW); // Start with laser OFF
   
   // Configure X stepper
   stepperX.setMaxSpeed(1000);       // Steps per second
@@ -52,7 +63,26 @@ void setup() {
 }
 
 void loop() {
-  // Check if both steppers have reached target and there are more angles
+  // Check laser values based on current index
+  // In C++, we use strcmp: it returns 0 if strings match exactly
+  if (strcmp(laserValues[currentIndex], "true") == 0 && laserState == 0) {
+    laserState = 1;
+  }
+  
+  if (strcmp(laserValues[currentIndex], "false") == 0 && laserState == 1) {
+    laserState = 0;
+  }
+  
+  // Actuate the laser based on state
+  if (laserState == 1) {
+    digitalWrite(LASER_PIN, HIGH); // SET LASER TO BE ON
+  }
+  
+  if (laserState == 0) {
+    digitalWrite(LASER_PIN, LOW);  // SET LASER TO BE OFF
+  }
+
+  // Motor Logic
   if (stepperX.distanceToGo() == 0 && 
       stepperY.distanceToGo() == 0 && 
       currentIndex < numAngles) {
@@ -68,6 +98,8 @@ void loop() {
   if (currentIndex >= numAngles) {
     Serial.println("\nCompleted all angles. Restarting...\n");
     currentIndex = 0;
+    // Reset Laser to off on restart just in case
+    laserState = 0; 
     delay(2000);
   }
   
