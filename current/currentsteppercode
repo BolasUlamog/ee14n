@@ -1,0 +1,19 @@
+#include <Stepper.h>
+
+const int stepsPerRevolution = 200; // Change this to fit your motor
+Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11); // Pins connected to motor driver
+
+void setup() {
+  myStepper.setSpeed(60); // Set speed in RPM
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("clockwise");
+  myStepper.step(stepsPerRevolution);
+  delay(500);
+
+  Serial.println("counterclockwise");
+  myStepper.step(-stepsPerRevolution);
+  delay(500);
+}
