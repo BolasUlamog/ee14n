@@ -1,19 +1,79 @@
-#include <Stepper.h>
 
-const int stepsPerRevolution = 200; // Change this to fit your motor
-Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11); // Pins connected to motor driver
+
+#include <AccelStepper.h>
+
+#define STEP_PIN 2
+#define DIR_PIN 3
+#define STEPS_PER_REV 200
+#define MICROSTEPS 16 
+
+AccelStepper stepper(AccelStepper::DRIVER, STEP_PIN, DIR_PIN);
+
+float targetAngles[] = {81.2722, 81.2722, 81.3873, 81.5021, 270, 360, 82.2962, 0};
+int numAngles = sizeof(targetAngles) / sizeof(targetAngles[0]);
+int currentIndex = 0;
+
+float currentAngle = 0.0;
 
 void setup() {
-  myStepper.setSpeed(60); // Set speed in RPM
   Serial.begin(9600);
+  
+  stepper.setMaxSpeed(1000);       // Steps per second
+  stepper.setAcceleration(500);    // Steps per second²
+  stepper.setCurrentPosition(0);   // Set current position as zero
+  
+  Serial.println("Stepper Motor Angle Control");
+  Serial.println("Ready to move to angles from list");
+  Serial.println();
 }
 
 void loop() {
-  Serial.println("clockwise");
-  myStepper.step(stepsPerRevolution);
-  delay(500);
+  // If stepper has reached target and there are more angles in the list
+  if (stepper.distanceToGo() == 0 && currentIndex < numAngles) {
+    moveToAngle(targetAngles[currentIndex]);
+    currentIndex++;
+    
+    // Wait a bit at each position
+    delay(1000);
+  }
+  
+  // If we've gone through all angles, reset
+  if (currentIndex >= numAngles) {
+    Serial.println("\nCompleted all angles. Restarting...\n");
+    currentIndex = 0;
+    delay(2000);
+  }
+  
+  // Run the stepper (must be called frequently)
+  stepper.run();
+}
 
-  Serial.println("counterclockwise");
-  myStepper.step(-stepsPerRevolution);
-  delay(500);
+void moveToAngle(float targetAngle) {
+  Serial.print("Moving to angle: ");
+  Serial.print(targetAngle);
+  Serial.println("°");
+  
+  // Calculate steps needed for the target angle
+  long stepsToMove = angleToSteps(targetAngle - currentAngle);
+  
+  // Move to the new position
+  stepper.move(stepsToMove);
+  
+  // Update current angle
+  currentAngle = targetAngle;
+  
+  Serial.print("Steps to move: ");
+  Serial.println(stepsToMove);
+}
+
+// Convert angle difference to steps
+long angleToSteps(float angleDelta) {
+  // Calculate total steps per revolution including microstepping
+  float stepsPerDegree = (STEPS_PER_REV * MICROSTEPS) / 360.0;
+  return (long)(angleDelta * stepsPerDegree);
+}
+
+// Optional: Function to add new angle to the list dynamically
+void moveToCustomAngle(float angle) {
+  moveToAngle(angle);
 }
