@@ -1,23 +1,27 @@
-
-
 #include <AccelStepper.h>
 
 #define STEP_PIN 2
 #define DIR_PIN 3
-#define STEPS_PER_REV 200
-#define MICROSTEPS 16 
 
+// Motor specifications
+#define STEPS_PER_REV 200  // 200 steps for 1.8° stepper (adjust if need?)
+#define MICROSTEPS 1      // Microstepping setting (1, 2, 4, 8, 16)
+
+// Create stepper object
 AccelStepper stepper(AccelStepper::DRIVER, STEP_PIN, DIR_PIN);
 
+// List of target angles (in degrees)
 float targetAngles[] = {81.2722, 81.2722, 81.3873, 81.5021, 270, 360, 82.2962, 0};
 int numAngles = sizeof(targetAngles) / sizeof(targetAngles[0]);
 int currentIndex = 0;
 
+// Current angle tracker
 float currentAngle = 0.0;
 
 void setup() {
   Serial.begin(9600);
   
+  // Configure stepper
   stepper.setMaxSpeed(1000);       // Steps per second
   stepper.setAcceleration(500);    // Steps per second²
   stepper.setCurrentPosition(0);   // Set current position as zero
@@ -48,6 +52,7 @@ void loop() {
   stepper.run();
 }
 
+// Function to move to a specific angle
 void moveToAngle(float targetAngle) {
   Serial.print("Moving to angle: ");
   Serial.print(targetAngle);
