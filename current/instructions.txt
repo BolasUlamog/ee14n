@@ -1,3 +1,6 @@
 1. Run ee14n.py to get list of x-y coordinates
 2. Run converttodegrees.py to convert to polar and instructions for when laser should be on
-3. Run points.py
+3. Run lists.py
+4. Copy and paste x, y, laser.txt files into stepper motor code
+5. Run code on arduino!
+6. See cool pictures
