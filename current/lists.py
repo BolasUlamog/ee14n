@@ -24,7 +24,6 @@ def process_data():
                 # Check if the line has enough data points to avoid errors
                 if len(parts) >= 3:
                     # Parse Laser (Boolean)
-                    # This checks if the string is exactly "True"
                     laser_list.append(parts[0].strip() == 'True')
                     
                     # Parse X and Y (Floats)
@@ -34,7 +33,13 @@ def process_data():
         # Helper function to write a list to a single-line file
         def write_file(name, data):
             with open(name, 'w') as out_file:
-                out_file.write(str(data))
+                if name == "laser.txt":
+                    # Convert True/False booleans to 'true'/'false' strings
+                    data = ['true' if item else 'false' for item in data]
+                    # Convert list to string and replace single quotes with double quotes
+                    out_file.write(str(data).replace("'", '"'))
+                else:
+                    out_file.write(str(data))
 
         # Generate the files
         write_file("laser.txt", laser_list)
