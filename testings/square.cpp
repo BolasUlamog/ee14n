@@ -24,13 +24,13 @@ AccelStepper stepperX(AccelStepper::DRIVER, X_STEP_PIN, X_DIR_PIN);
 AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
 // List of target angles for X-axis (in degrees)
-const float PROGMEM xAngles[] = {0, 1, 0, 1, 90, 89, 90, 89, 0};
+const float xAngles[] = {0, 1, 0, 1, 90, 89, 90, 89, 0};
 
 // List of target angles for Y-axis (in degrees)
-const float PROGMEM yAngles[] = {0, 1, 90, 89, 90, 89, 0, 0, 0};
+const float yAngles[] = {0, 1, 90, 89, 90, 89, 0, 0, 0};
 
 // List of True/False values to turn laser on/off
-const char* PROGMEM laserValues[] = {"true", "true", "true", "true", "true", "false", "true", "false"};
+const char* laserValues[] = {"true", "true", "true", "true", "true", "false", "true", "false"};
 
 int numAngles = sizeof(xAngles) / sizeof(xAngles[0]);
 int currentIndex = 0;
