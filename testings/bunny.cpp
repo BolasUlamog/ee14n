@@ -1,5 +1,5 @@
 // Dual Stepper Motor X-Y Angle Control
-// SHAPE: GENERIC BUNNY HEAD (Centered in 0-90 workspace)
+// SHAPE: WIDE BUNNY (Stretched Horizontally)
 
 #include <AccelStepper.h>
 
@@ -19,12 +19,12 @@
 AccelStepper stepperX(AccelStepper::DRIVER, X_STEP_PIN, X_DIR_PIN);
 AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
-// --- BUNNY COORDINATES ---
-// Outline: Chin -> Right Cheek -> Right Ear Base -> Right Ear Tip -> 
-//          Forehead -> Left Ear Tip -> Left Ear Base -> Left Cheek -> Chin
+// --- WIDE BUNNY COORDINATES ---
+// I stretched the X-values to fill the range 3 to 87 degrees.
+// The Y-values (Height) remain the same.
 
-const float xAngles[] = {45,  70,  65,  75,  45,  15,  25,  20,  45};
-const float yAngles[] = {0,  30,  70,  90,  55,  90,  70,  30,  0};
+const float xAngles[] = {45, 80, 73, 87, 45,  3, 17, 10, 45};
+const float yAngles[] = {15, 35, 65, 85, 60, 85, 65, 35, 15};
 
 // Laser ON for the drawing
 const char* laserValues[] = {"true", "true", "true", "true", "true", "true", "true", "true", "true"};
@@ -87,12 +87,11 @@ void loop() {
 }
 
 void moveToAngles(float targetXData, float targetYData) {
-  // SWAPPED LOGIC
-  // Send Y-Data to X-Stepper
+  // SWAPPED LOGIC (X Data -> Y Stepper)
+  
   long stepsForStepperX = angleToAbsoluteSteps(targetYData);
   stepperX.moveTo(stepsForStepperX);
 
-  // Send X-Data to Y-Stepper
   long stepsForStepperY = angleToAbsoluteSteps(targetXData);
   stepperY.moveTo(stepsForStepperY);
 }
