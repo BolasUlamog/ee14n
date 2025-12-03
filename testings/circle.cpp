@@ -104,7 +104,7 @@ void loop() {
     currentIndex++;
     
     // Wait at each position
-    delay(10);
+    delay(100);
   }
   
   if (currentIndex >= numAngles) {
