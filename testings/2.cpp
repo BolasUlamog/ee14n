@@ -1,5 +1,5 @@
 // Dual Stepper Motor X-Y Angle Control
-// UPDATED: X Stepper is Y Coordinate | Fixed Gravity Drift
+// FIXED: Reverted Microsteps to 0.25 for correct scaling
 
 #include <AccelStepper.h>
 
@@ -7,8 +7,6 @@
 #define LASER_PIN 7
 
 // --- PINS ---
-// NOTE: You said X_STEPPER is the Y_COORDINATE.
-// This code maps the logic accordingly.
 #define X_STEP_PIN 2
 #define X_DIR_PIN 3
 #define Y_STEP_PIN 4
@@ -16,7 +14,9 @@
 
 // --- MOTOR SETTINGS ---
 #define STEPS_PER_REV 200  
-#define MICROSTEPS 2       // Set to 2 as per your code
+// We set this back to 0.25 because this value was giving you the 
+// correct distance previously.
+#define MICROSTEPS 0.25    
 
 // Create stepper objects
 AccelStepper stepperX(AccelStepper::DRIVER, X_STEP_PIN, X_DIR_PIN);
@@ -42,12 +42,12 @@ void setup() {
   // Configure X Stepper (Physically the Y-Axis)
   stepperX.setMaxSpeed(500);       
   stepperX.setAcceleration(200);   
-  stepperX.setCurrentPosition(0);  // Assume starting at 0
+  stepperX.setCurrentPosition(0); 
   
   // Configure Y Stepper (Physically the X-Axis)
   stepperY.setMaxSpeed(500);       
   stepperY.setAcceleration(200);   
-  stepperY.setCurrentPosition(0);  // Assume starting at 0
+  stepperY.setCurrentPosition(0); 
   
   Serial.println("Dual Stepper Motor X-Y Angle Control");
   delay(1000);
@@ -79,7 +79,6 @@ void loop() {
           }
           
           // 2. MOVE MOTORS
-          // We pass the data from the lists to the mover function
           moveToAngles(xAngles[currentIndex], yAngles[currentIndex]);
           
           // 3. INCREMENT
@@ -100,20 +99,19 @@ void moveToAngles(float targetXData, float targetYData) {
   Serial.println(targetYData);
 
   // --- THE SWAP ---
-  // You said "X STEPPER IS THE Y COORDINATE"
+  // X-Data goes to Y-Stepper
+  // Y-Data goes to X-Stepper
   
-  // 1. Send Y-Data to the X-Stepper (because X-Stepper controls Y-Axis)
   long stepsForStepperX = angleToAbsoluteSteps(targetYData);
   stepperX.moveTo(stepsForStepperX);
 
-  // 2. Send X-Data to the Y-Stepper (because Y-Stepper controls X-Axis)
   long stepsForStepperY = angleToAbsoluteSteps(targetXData);
   stepperY.moveTo(stepsForStepperY);
 }
 
 // Convert angle directly to absolute step count
-// Uses ABSOLUTE positioning to prevent gravity drift
 long angleToAbsoluteSteps(float angle) {
+  // Uses 0.25 Microsteps to keep the movement size small
   float stepsPerDegree = (STEPS_PER_REV * MICROSTEPS) / 360.0;
   return (long)(angle * stepsPerDegree);
 }
