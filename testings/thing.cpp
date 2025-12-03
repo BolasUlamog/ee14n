@@ -27,7 +27,7 @@ AccelStepper stepperX(AccelStepper::DRIVER, X_STEP_PIN, X_DIR_PIN);
 AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
 // List of target angles for X-axis (in degrees)
-const float xAngles[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
+const float xAngles[] = {0, 10, 20, 30, 40, 45, 45, 90, 30, 45};
 
 // List of target angles for Y-axis (in degrees)
 const float yAngles[] = {0, 0,0,0,0,0,0,0,0,0};
