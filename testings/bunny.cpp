@@ -24,7 +24,7 @@ AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 //          Forehead -> Left Ear Tip -> Left Ear Base -> Left Cheek -> Chin
 
 const float xAngles[] = {45,  70,  65,  75,  45,  15,  25,  20,  45};
-const float yAngles[] = {15,  35,  65,  85,  60,  85,  65,  35,  15};
+const float yAngles[] = {0,  30,  70,  90,  55,  90,  70,  30,  0};
 
 // Laser ON for the drawing
 const char* laserValues[] = {"true", "true", "true", "true", "true", "true", "true", "true", "true"};
