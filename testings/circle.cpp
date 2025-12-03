@@ -38,7 +38,11 @@ const float yAngles[] = {45.00, 51.95, 58.68, 65.00, 70.71, 75.64, 79.64, 82.58,
   45.00};
 
 // List of True/False values to turn laser on/off
-const char* laserValues[] = {"true", "true", "true", "true", "true", "false", "true", "false", "true"};
+const char* laserValues[] = {"true", "true", "true", "true", "true", "true", "true", "true", "true", 
+  "true", "true", "true", "true", "true", "true", "true", "true", "true", 
+  "true", "true", "true", "true", "true", "true", "true", "true", "true", 
+  "true", "true", "true", "true", "true", "true", "true", "true", "true", 
+  "true"};
 
 int numAngles = sizeof(xAngles) / sizeof(xAngles[0]);
 int currentIndex = 0;
