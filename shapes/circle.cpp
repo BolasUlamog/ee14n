@@ -1,5 +1,5 @@
 // Dual Stepper Motor X-Y Angle Control
-// SHAPE: HEXAGON (Centered at 45,45 | Radius 40)
+// SMOOTH SPLINE DATA PLAYER
 
 #include <AccelStepper.h>
 
@@ -65,6 +65,7 @@ const char* laserValues[] = {
   "true"
 };
 
+// --- VARIABLES ---
 int numAngles = sizeof(xAngles) / sizeof(xAngles[0]);
 int currentIndex = 0;
 
@@ -74,17 +75,18 @@ void setup() {
   digitalWrite(LASER_PIN, LOW); 
   
   // --- SPEED SETTINGS ---
-  // X Stepper (Physically Y Axis)
-  stepperX.setMaxSpeed(800);       
-  stepperX.setAcceleration(400);   
-  stepperX.setCurrentPosition(45); 
+  // Since points are now smoothed by Spline, we can run faster/smoother
+  stepperX.setMaxSpeed(1000);       
+  stepperX.setAcceleration(500);   
+  stepperX.setCurrentPosition(40); 
   
-  // Y Stepper (Physically X Axis)
-  stepperY.setMaxSpeed(800);       
-  stepperY.setAcceleration(400);   
-  stepperY.setCurrentPosition(45); 
+  stepperY.setMaxSpeed(1000);       
+  stepperY.setAcceleration(500);   
+  stepperY.setCurrentPosition(40); 
   
-  Serial.println("Dual Stepper Motor X-Y Angle Control");
+  Serial.println("System Ready.");
+  Serial.print("Points loaded: ");
+  Serial.println(numAngles);
   delay(1000);
 }
 
@@ -94,8 +96,8 @@ void loop() {
 
   if (stepperX.distanceToGo() == 0 && stepperY.distanceToGo() == 0) {
       
+      // Sequence complete check
       if (currentIndex >= numAngles) {
-          Serial.println("Sequence Complete.");
           currentIndex = 0;
           digitalWrite(LASER_PIN, LOW);
           delay(2000);
@@ -116,19 +118,20 @@ void loop() {
           // 3. INCREMENT
           currentIndex++;
           
-          // 4. WAIT (Fast 10ms delay)
-          delay(10); 
+          // 4. WAIT
+          // Minimal delay because the spline points are already smooth and dense
+          delay(5); 
       }
   }
 }
 
 void moveToAngles(float targetXData, float targetYData) {
-  // SWAPPED LOGIC AS REQUESTED
-  // Send Y-Data to X-Stepper
+  // SWAPPED LOGIC (X Data -> Y Stepper)
+  // Uses Absolute Positioning
+  
   long stepsForStepperX = angleToAbsoluteSteps(targetYData);
   stepperX.moveTo(stepsForStepperX);
 
-  // Send X-Data to Y-Stepper
   long stepsForStepperY = angleToAbsoluteSteps(targetXData);
   stepperY.moveTo(stepsForStepperY);
 }
