@@ -26,11 +26,11 @@
 AccelStepper stepperX(AccelStepper::DRIVER, X_STEP_PIN, X_DIR_PIN);
 AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
-// List of target angles for X-axis (in degrees)
+// List of target angles for Y-axis (in degrees)
 const float xAngles[] = {0, 10, 20, 30, 40, 45, 45, 90, 30, 45};
 
-// List of target angles for Y-axis (in degrees)
-const float yAngles[] = {0, 0,0,0,0,0,0,0,0,0};
+// List of target angles for X-axis (in degrees)
+const float yAngles[] = {0, 10,20,30,40,50,60,70,80,90};
 
 // List of True/False values to turn laser on/off
 const char* laserValues[] = {"true", "true", "true", "true", "true", "true", "true", "true", "true", "true"};
@@ -51,13 +51,13 @@ void setup() {
   digitalWrite(LASER_PIN, LOW); // Start with laser OFF
   
   // Configure X stepper
-  stepperX.setMaxSpeed(1000);       // Steps per second
-  stepperX.setAcceleration(500);    // Steps per second²
+  stepperX.setMaxSpeed(500);       // Steps per second
+  stepperX.setAcceleration(200);    // Steps per second²
   stepperX.setCurrentPosition(45);   // Set current position as zero
   
   // Configure Y stepper
-  stepperY.setMaxSpeed(1000);       // Steps per second
-  stepperY.setAcceleration(500);    // Steps per second²
+  stepperY.setMaxSpeed(500);       // Steps per second
+  stepperY.setAcceleration(200);    // Steps per second²
   stepperY.setCurrentPosition(45);   // Set current position as zero
   
   Serial.println("Dual Stepper Motor X-Y Angle Control");
