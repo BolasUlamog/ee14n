@@ -21,13 +21,13 @@ AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
 // --- PASTE DATA HERE ---
 // (Example data - REPLACE with contents of x.txt)
-const float xAngles[] = {16.78, 11.0, 14.81, 20.61, 26.48, 32.28, 38.15, 43.93, 49.73, 55.6, 61.41, 67.28, 73.08, 78.85, 75.11, 69.24, 63.43, 57.57, 51.77, 45.99, 40.12, 34.31, 28.44, 22.64, 16.78, 16.78, 10.99, 14.81, 20.61, 26.48, 32.28, 38.15, 43.93, 49.73, 55.6, 61.41, 67.28, 73.08, 78.85, 75.11, 69.24, 63.43, 57.57, 51.77, 45.99, 40.12, 34.31, 28.44, 22.64, 16.78}; 
+const float xAngles[] = {20.03, 18.24, 16.26, 20.94, 23.09, 25.3, 27.99, 30.33, 32.84, 35.6, 38.96, 41.48, 44.12, 47.2, 50.06, 53.0, 55.47, 57.9, 60.28, 62.62, 65.38, 67.57, 69.88, 71.93, 74.08, 71.14, 68.6, 66.43, 64.2, 61.81, 59.46, 56.64, 54.18, 51.7, 49.07, 46.54, 43.57, 41.04, 38.52, 35.92, 33.47, 30.64, 28.29, 25.99, 23.66, 21.49, 18.95, 16.94, 15.0, 72.89, 74.83, 38.41}; 
 
 // (Example data - REPLACE with contents of y.txt)
-const float yAngles[] = {44.81, 39.06, 42.75, 41.22, 40.43, 43.54, 38.12, 43.87, 40.09, 41.55, 42.42, 39.22, 44.76, 38.97, 42.83, 41.3, 40.51, 43.62, 38.19, 43.96, 40.18, 41.63, 42.5, 39.3, 44.81, 52.04, 46.29, 49.98, 48.45, 47.66, 50.78, 45.35, 51.1, 47.33, 48.78, 49.65, 46.46, 51.99, 46.21, 50.07, 48.53, 47.74, 50.85, 45.42, 51.19, 47.41, 48.86, 49.74, 46.54, 52.04};
+const float yAngles[] = {51.64, 48.91, 46.38, 50.44, 47.92, 45.39, 47.04, 49.57, 50.33, 47.59, 45.28, 47.81, 50.44, 49.02, 46.27, 46.27, 48.8, 51.31, 48.8, 46.27, 46.27, 48.8, 51.1, 48.58, 45.83, 43.73, 44.06, 41.53, 39.01, 41.2, 43.73, 44.06, 41.53, 39.01, 41.2, 43.73, 44.06, 41.53, 39.01, 41.2, 43.73, 43.95, 41.42, 38.9, 41.31, 43.84, 43.95, 41.42, 38.9, 41.53, 39.01, 38.79};
 
 // (Example data - REPLACE with contents of laser.txt)
-const char* laserValues[] = {"false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true"};
+const char* laserValues[] = {"false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true"};
 
 
 // --- VARIABLES ---
@@ -43,11 +43,11 @@ void setup() {
   // Since points are now smoothed by Spline, we can run faster/smoother
   stepperX.setMaxSpeed(1000);       
   stepperX.setAcceleration(500);   
-  stepperX.setCurrentPosition(0); 
+  stepperX.setCurrentPosition(40); 
   
   stepperY.setMaxSpeed(1000);       
   stepperY.setAcceleration(500);   
-  stepperY.setCurrentPosition(0); 
+  stepperY.setCurrentPosition(40); 
   
   Serial.println("System Ready.");
   Serial.print("Points loaded: ");
