@@ -1,3 +1,6 @@
+// THE X STEPPER IS THE Y COORDINATE
+
+
 // Dual Stepper Motor X-Y Angle Control
 // Uses AccelStepper library for smooth movement
 
