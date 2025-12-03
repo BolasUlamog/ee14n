@@ -27,7 +27,7 @@ AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 const float xAngles[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
 
 // List of target angles for Y-axis (in degrees)
-const float yAngles[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
+const float yAngles[] = {0, 0,0,0,0,0,0,0,0,0};
 
 // List of True/False values to turn laser on/off
 const char* laserValues[] = {"true", "true", "true", "true", "true", "true", "true", "true", "true", "true"};
