@@ -19,7 +19,7 @@
 
 // Motor specifications
 #define STEPS_PER_REV 200  // 200 steps for 1.8° stepper
-#define MICROSTEPS 0.25    // Microstepping setting (use 1, 2, 4, 8, or 16)
+#define MICROSTEPS 2    // Microstepping setting (use 1, 2, 4, 8, or 16)
                            // Note: 0.25 is unusual - verify your driver setting!
 
 // Create stepper objects
