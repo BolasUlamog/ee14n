@@ -21,13 +21,13 @@ AccelStepper stepperY(AccelStepper::DRIVER, Y_STEP_PIN, Y_DIR_PIN);
 
 // --- PASTE DATA HERE ---
 // (Example data - REPLACE with contents of x.txt)
-const float xAngles[] = {84.95, 75.64, 48.32, 75.79, 84.95, 5.05, 13.72, 41.14, 13.86, 5.05, 44.28, 17.44, 6.73, 10.46, 30.23, 60.9, 80.0, 83.14, 71.68, 44.28, 48.16, 74.92, 84.97, 75.79, 48.16, 41.04, 13.4, 5.03, 14.45, 41.04}; 
+const float xAngles[] = {5.21, 5.03, 5.03, 5.03, 5.03, 5.03, 5.02, 5.0, 11.39, 21.57, 33.58, 46.68, 59.61, 71.19, 80.87, 84.99, 85.0, 85.0, 85.0, 85.0, 85.0, 84.99, 83.02, 73.81, 62.66, 49.98, 36.79, 24.41, 13.74, 5.21}; 
 
 // (Example data - REPLACE with contents of y.txt)
-const float yAngles[] = {41.2, 14.02, 5.0, 14.05, 41.2, 42.61, 14.57, 5.0, 14.54, 42.61, 83.64, 76.25, 52.41, 22.82, 7.94, 8.24, 23.81, 53.76, 76.92, 83.64, 84.96, 76.66, 49.88, 75.96, 84.96, 85.0, 75.09, 48.01, 76.07, 85.0};
+const float yAngles[] = {84.79, 76.26, 65.59, 53.21, 40.02, 27.34, 16.19, 6.97, 5.01, 5.0, 5.0, 5.0, 5.0, 5.0, 5.01, 9.13, 18.8, 30.39, 43.32, 56.42, 68.43, 78.61, 85.0, 84.98, 84.97, 84.97, 84.97, 84.97, 84.97, 84.79};
 
 // (Example data - REPLACE with contents of laser.txt)
-const char* laserValues[] = {"false", "true", "true", "true", "true", "false", "true", "true", "true", "true", "false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "false", "true", "true", "true", "true", "false", "true", "true", "true", "true"};
+const char* laserValues[] = {"false", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true", "true"};
 
 
 // --- VARIABLES ---
